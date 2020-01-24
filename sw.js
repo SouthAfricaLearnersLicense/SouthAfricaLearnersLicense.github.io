@@ -18,15 +18,16 @@
     self.onactivate = e => {
         caches.keys().then(cacheNames => Promise.all(cacheNames.map( name => {
             if (!cacheName.includes(name)){
-                return caches.delete(name)
+                return caches.delete(name);
             }
         })))
     }
 
     self.onfetch = e => {
-        e.respondWith(caches.match(e.request).then(res => {
+        e.respondWith(caches.match(e.request)
+        .then(res => {
             if(res){
-                return res;
+                return (res);
             }
 
             return fetch(e.request).then(res => {
@@ -34,9 +35,11 @@
                     return (res);
                 }
                 let cacheRes = res.clone();
-                caches.open(cacheName).then(cache => cache.put(e.request, cacheRes));
+                caches.open(cacheName).then(cache => {
+                    cache.put(e.request, cacheRes);
+                });
                 return (res);
-            }).catch(console.error)
+            }).catch(err => console.error(err));
 
         }));
     }
