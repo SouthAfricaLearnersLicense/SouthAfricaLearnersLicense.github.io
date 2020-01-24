@@ -12,14 +12,19 @@
     <title>LLT</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <link rel="shortcut icon" type="image/png" href="./icons/144.png" />
-    <link rel="manifest" href="./manifest.json"/>
+    <link rel="manifest" href="./manifest.json" />
     <script type="module" src="./js/main.js"></script>
     <script defer>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-                .then(sw => {
-                    // console.log(`service worker registered at ${sw.scope}`);
-                }).catch(err => console.error)
+            window.addEventListener('load', async e => {
+                try {
+                    let res = await navigator.serviceWorker.register('./sw.js');
+                    // console.log(`seviceworker registered at scope:${res.scope}`)
+                } catch (err) {
+                    // console.error(err);
+                }
+            })
+
         }
     </script>
 </head>
