@@ -30,7 +30,7 @@
             }
 
             return fetch(e.request).then(res => {
-                if (!res || res !== 200 || res.type != 'basic') {
+                if (!res || res !== 200 || res.type !== 'basic') {
                     return (res);
                 }
                 let cacheRes = res.clone();
