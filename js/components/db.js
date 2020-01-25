@@ -11,18 +11,21 @@ export default (askUser, categories, userAnswers, usersQuestionCategory, pageCon
         dbReq;
 
     "indexedDB" in window ?
-        dataAvailable() :
+        loadData() :
         notSupported()
 
     function notSupported() {
         alert("IndexedDB not supported by you device, this web-app won't perform as expected.")
     }
 
-    function dataAvailable() {
+    function loadData() {
+
+
         switch (JSON.parse(localStorage.getItem('data_available'))) {
             case true:
                 askQuestion();
                 break
+
             default:
                 createDB();
                 localStorage.setItem('data_available', JSON.stringify(true));
@@ -253,7 +256,7 @@ export default (askUser, categories, userAnswers, usersQuestionCategory, pageCon
         if (correct.test(answer['x'])) {
             // console.log(correct.test(answer['x']));
             //    get new question.
-            
+
             let x = getLeftAt();
             setLeftAt(x.category, x.id + 1);
             askQuestion();
@@ -269,16 +272,17 @@ TRY AGAIN!`)
             id: y
         }));
     }
-    function getLeftAt(){
+
+    function getLeftAt() {
         let x = JSON.parse(localStorage.getItem("left_at"));
-        return(x);
+        return (x);
     }
 
     function questionsLeft() {
         let total = JSON.parse(localStorage.getItem('numberOfQs')),
             cur = JSON.parse(localStorage.getItem("left_at"));
         cur = cur.id;
-        return('question '+ cur + '/' + total)
+        return ('question ' + cur + '/' + total)
     }
 
 }
