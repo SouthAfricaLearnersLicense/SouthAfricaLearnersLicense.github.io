@@ -4,7 +4,10 @@
         './',
         '/index.html',
         '/css/main.css',
-        '/js/main.js'
+        '/js/main.js',
+        '/js/components/about.js',
+        '/js/components/db.js',
+        '/js/components/questions.js'
     ];
 
     self.oninstall = e => {
